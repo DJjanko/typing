@@ -1,0 +1,240 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Typing Practice – Slovene QWERTZ</title>
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <div class="app">
+    <div class="top">
+      <div class="bar">
+        <div class="title">
+          <h1>Writing practice</h1>
+          <div class="chip">Slovene QWERTZ (HR/SL)</div>
+        </div>
+
+        <div class="controls">
+          <select id="lang">
+            <option value="sl">Slovene text</option>
+            <option value="en">English text</option>
+          </select>
+
+          <select id="source">
+            <option value="wiki">Wikipedia</option>
+            <option value="ai">AI (topic)</option>
+            <option value="code">Code snippets</option>
+          </select>
+
+          <input id="topic" type="text" placeholder="Topic (for Wikipedia / AI)" />
+
+          <!-- Text length (wiki/ai only) -->
+          <select id="textLen" data-only="text">
+            <option value="short">Short</option>
+            <option value="medium">Medium</option>
+            <option value="long">Long</option>
+          </select>
+
+          <select id="codeLang" data-only="code" style="display:none">
+            <option value="python">Python</option>
+            <option value="javascript">JavaScript</option>
+            <option value="java">Java</option>
+            <option value="csharp">C#</option>
+            <option value="cpp">C++</option>
+            <option value="c">C</option>
+            <option value="sql">SQL</option>
+            <option value="html">HTML</option>
+            <option value="css">CSS</option>
+          </select>
+
+          <select id="codeLevel" data-only="code" style="display:none">
+            <option value="easy">Easy</option>
+            <option value="medium">Medium</option>
+          </select>
+
+          <select id="style">
+            <option value="plain">Plain</option>
+            <option value="movie">Movie vibe (original)</option>
+            <option value="book">Bookish (original)</option>
+            <option value="tech">Tech / engineering</option>
+            <option value="science">Science</option>
+            <option value="history">History</option>
+            <option value="upcoming">Upcoming events (generic)</option>
+          </select>
+
+          <button id="newText">New text</button>
+          <button id="restart" class="ghost">Restart</button>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="hintRow">
+          <div>
+            Next: <span class="hintStrong" id="nextChar">—</span>
+            <span class="smallNote">(type here, anywhere)</span>
+          </div>
+
+          <div class="hintRight">
+            <!-- Training toggle (green = training on) -->
+            <div class="toggleWrap" id="trainingWrap">
+              <span class="smallNote">Training</span>
+              <label class="switch" title="Training: wrong letters don't move forward">
+                <input type="checkbox" id="trainingToggle" checked />
+                <span class="slider"></span>
+              </label>
+            </div>
+
+            <div class="toggleWrap" id="keyboardWrap">
+              <span class="smallNote">Keyboard</span>
+              <label class="switch" title="Show or hide on-screen keyboard">
+                <input type="checkbox" id="keyboardToggle" checked />
+                <span class="slider"></span>
+              </label>
+            </div>
+
+            <div class="stats">
+              <div class="stat">Time left: <span id="timeLeft">--</span></div>
+              <div class="stat">Progress: <span id="progress">0%</span></div>
+              <div class="stat">Correct: <span id="ok">0</span></div>
+              <div class="stat">Wrong: <span id="bad">0</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="textWrap" id="textWrap" aria-label="Target text">
+          <div class="sideGlow left" id="sideGlowL" aria-hidden="true"></div>
+          <div class="sideGlow right" id="sideGlowR" aria-hidden="true"></div>
+
+          <div class="fingerOverlay" id="fingerOverlay" aria-hidden="true">
+            <svg viewBox="0 0 1000 360" role="img" aria-label="Hand & key guide">
+              <rect x="70" y="70" width="860" height="190" rx="26" fill="rgba(255,255,255,.06)" stroke="rgba(255,255,255,.14)" stroke-width="2" />
+              <rect x="110" y="100" width="780" height="135" rx="20" fill="rgba(0,0,0,.12)" stroke="rgba(255,255,255,.10)" />
+
+              <g>
+                <circle class="kbdDot" data-key="q" cx="155" cy="130" r="20" />
+                <circle class="kbdDot" data-key="w" cx="215" cy="130" r="20" />
+                <circle class="kbdDot" data-key="e" cx="275" cy="130" r="20" />
+                <circle class="kbdDot" data-key="r" cx="335" cy="130" r="20" />
+                <circle class="kbdDot" data-key="t" cx="395" cy="130" r="20" />
+                <circle class="kbdDot" data-key="z" cx="455" cy="130" r="20" />
+                <circle class="kbdDot" data-key="u" cx="515" cy="130" r="20" />
+                <circle class="kbdDot" data-key="i" cx="575" cy="130" r="20" />
+                <circle class="kbdDot" data-key="o" cx="635" cy="130" r="20" />
+                <circle class="kbdDot" data-key="p" cx="695" cy="130" r="20" />
+                <circle class="kbdDot" data-key="š" cx="755" cy="130" r="20" />
+                <circle class="kbdDot" data-key="đ" cx="815" cy="130" r="20" />
+
+                <circle class="kbdDot" data-key="a" cx="185" cy="175" r="20" />
+                <circle class="kbdDot" data-key="s" cx="245" cy="175" r="20" />
+                <circle class="kbdDot" data-key="d" cx="305" cy="175" r="20" />
+                <circle class="kbdDot" data-key="f" cx="365" cy="175" r="20" />
+                <circle class="kbdDot" data-key="g" cx="425" cy="175" r="20" />
+                <circle class="kbdDot" data-key="h" cx="485" cy="175" r="20" />
+                <circle class="kbdDot" data-key="j" cx="545" cy="175" r="20" />
+                <circle class="kbdDot" data-key="k" cx="605" cy="175" r="20" />
+                <circle class="kbdDot" data-key="l" cx="665" cy="175" r="20" />
+                <circle class="kbdDot" data-key="č" cx="725" cy="175" r="20" />
+                <circle class="kbdDot" data-key="ć" cx="785" cy="175" r="20" />
+                <circle class="kbdDot" data-key="ž" cx="845" cy="175" r="20" />
+
+                <circle class="kbdDot" data-key="y" cx="215" cy="220" r="20" />
+                <circle class="kbdDot" data-key="x" cx="275" cy="220" r="20" />
+                <circle class="kbdDot" data-key="c" cx="335" cy="220" r="20" />
+                <circle class="kbdDot" data-key="v" cx="395" cy="220" r="20" />
+                <circle class="kbdDot" data-key="b" cx="455" cy="220" r="20" />
+                <circle class="kbdDot" data-key="n" cx="515" cy="220" r="20" />
+                <circle class="kbdDot" data-key="m" cx="575" cy="220" r="20" />
+                <circle class="kbdDot" data-key="," cx="635" cy="220" r="20" />
+                <circle class="kbdDot" data-key="." cx="695" cy="220" r="20" />
+                <circle class="kbdDot" data-key="/" cx="755" cy="220" r="20" />
+
+                <rect class="kbdBar" data-key="space" x="330" y="262" width="340" height="34" rx="17" />
+              </g>
+
+              <g id="handL" class="hand" aria-hidden="true">
+                <path d="M180 330 C120 285 130 245 175 230 C205 200 255 198 280 230 C312 210 350 226 350 260 C350 318 280 350 220 350 C204 350 191 344 180 330 Z" />
+                <text x="165" y="312" class="handLabel">LEFT</text>
+              </g>
+              <g id="handR" class="hand" aria-hidden="true">
+                <path d="M820 330 C880 285 870 245 825 230 C795 200 745 198 720 230 C688 210 650 226 650 260 C650 318 720 350 780 350 C796 350 809 344 820 330 Z" />
+                <text x="785" y="312" class="handLabel">RIGHT</text>
+              </g>
+            </svg>
+          </div>
+
+          <div id="textInner" class="textInner"></div>
+        </div>
+
+        <!-- Racer input (only when Training is OFF) -->
+        <div id="racerRow" class="racerRow" style="display:none">
+          <div class="racerLabel">Current word</div>
+          <input id="racerInput" class="racerInput" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" />
+          <div class="racerHint smallNote">Space = submit word • Backspace = within word</div>
+        </div>
+
+        <div class="message">
+          <div id="status">Press keys to start <span class="blink" aria-hidden="true"></span></div>
+          <div class="smallNote">Tip: If the on-screen highlights don’t match, switch your system keyboard to Slovene/Croatian QWERTZ.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="kbdArea" id="kbdArea">
+      <div class="kbdTopRow">
+        <div>On-screen keyboard (lights green if correct, red if wrong)</div>
+        <div class="smallNote">Backspace supported</div>
+      </div>
+      <div class="keyboard" id="keyboard" aria-label="Keyboard layout"></div>
+
+      <div id="kbdLegend" class="kbdLegend" aria-hidden="true">
+        <div>Mistake heatmap (share of total misses)</div>
+        <div id="kbdLegendRight">Misses: 0</div>
+      </div>
+    </div>
+
+    <div id="finishModal" class="modalBackdrop" aria-hidden="true">
+      <div class="modal" role="dialog" aria-modal="true" aria-label="Typing stats">
+        <div class="modalTitle">Sentence complete</div>
+
+        <div class="modalGrid">
+          <div class="modalCard">
+            <div class="modalLabel">CPM</div>
+            <div class="modalValue" id="mCpm">0</div>
+          </div>
+          <div class="modalCard">
+            <div class="modalLabel">WPM</div>
+            <div class="modalValue" id="mWpm">0</div>
+          </div>
+          <div class="modalCard">
+            <div class="modalLabel">Misses</div>
+            <div class="modalValue" id="mMiss">0</div>
+          </div>
+          <div class="modalCard">
+            <div class="modalLabel">Accuracy</div>
+            <div class="modalValue" id="mAcc">0%</div>
+          </div>
+          <div class="modalCard">
+            <div class="modalLabel">Time</div>
+            <div class="modalValue" id="mTime">0s</div>
+          </div>
+        </div>
+
+        <div class="modalChart" aria-label="Speed chart">
+          <div class="modalChartHeader">
+            <div>Speed over time</div>
+            <div class="smallNote">WPM (rolling 5s)</div>
+          </div>
+          <canvas id="speedChart" class="speedChart" height="130"></canvas>
+        </div>
+
+        <div class="modalMsg" id="mMsg">Keep going.</div>
+        <div class="modalNote">Press <span class="hintStrong">Enter</span> to continue</div>
+      </div>
+    </div>
+
+  </div>
+
+  <script src="./app.js"></script>
+</body>
+</html>
